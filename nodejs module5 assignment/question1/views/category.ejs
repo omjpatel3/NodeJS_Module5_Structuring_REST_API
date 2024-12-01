@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Category Form</h1>
+    <form action="/category/add" method="post">
+        <input type="hidden" name="id" value="<%= editData._id %>">
+        <label for="name">Name : </label>
+        <input type="text" name="name" id="name" value="<%= editData.name %>">
+        
+        <br><br>
+
+        <label for="age">Age:</label>
+        <input type="text" name="age" id="age" value="<%= editData.age %>">
+        
+        <br><br>
+
+        <input type="submit" value="Save Data">
+    </form>
+    <br><br>
+
+    <table border="5" >
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Action</th>
+        </tr>
+        <% data.map((i)=>{ %>
+            <tr>
+                <td><%= i._id%></td>
+                <td><%= i.name%></td>
+                <td><%= i.age%></td>
+                <td><a href="/category/edit/<%= i._id%>">Edit</a></td>
+                <td><a href="/category/del/<%= i._id%>">Delete</a></td>
+                
+
+            </tr>
+        <% })%>
+    </table>
+</body>
+</html>

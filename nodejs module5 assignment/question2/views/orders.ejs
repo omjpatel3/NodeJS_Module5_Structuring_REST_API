@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Order Management</title>
+  </head>
+  <body>
+    <h1>Manage Orders</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/reviews">Reviews</a>
+        <a href="/orders">Orders</a>
+        <a href="/users">Users</a>
+        <a href="/products">Products</a>
+      </nav>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Order Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach(order => { %>
+        <tr>
+          <td><%= order.productName %></td>
+          <td><%= order.orderPrice %></td>
+          
+          <td>
+            <a href="/orders/edit/<%= order._id %>">Edit</a> |
+            <a href="/orders/delete/<%= order._id %>">Delete</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <h2><%= editcat ? "Edit Order" : "Add Order" %></h2>
+    <form method="POST" action="/orders">
+      <input type="hidden" name="id" value="<%= editcat?._id || "" %>">
+      <input
+        type="text" name="productName" placeholder="Product Name" value="<%= editcat?.productName || "" %>" required>
+        <input
+        type="text" name="orderPrice" placeholder="Order Price" value="<%= editcat?.orderPrice || "" %>" required>
+      <button type="submit"><%= editcat ? "Update" : "Add" %></button>
+    </form>
+  </body>
+</html>

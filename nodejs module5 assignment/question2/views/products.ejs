@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Product Management</title>
+  </head>
+  <body>
+    <h1>Manage Products</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/reviews">Reviews</a>
+        <a href="/orders">Orders</a>
+        <a href="/users">Users</a>
+        <a href="/products">Products</a>
+      </nav>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach(product => { %>
+        <tr>
+          <td><%= product.productname %></td>
+          <!-- Use productname -->
+          <td>Price: <%= product.price %></td>
+          <!-- Use price -->
+          <td>
+            <a href="/products/edit/<%= product._id %>">Edit</a> |
+            <a href="/products/delete/<%= product._id %>">Delete</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <h2><%= editcat ? "Edit Product" : "Add Product" %></h2>
+    <form method="POST" action="/products">
+      <input type="hidden" name="id" value="<%= editcat?._id || "" %>">
+       <input
+      type="text" name="productname" placeholder="Product Name" value="<%=
+      editcat?.productname || "" %>" required> 
+      <input type="number" name="price"
+      placeholder="Price" value="<%= editcat?.price || "" %>" required>
+      <button type="submit"><%= editcat ? "Update" : "Add" %></button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Review Management</title>
+  </head>
+  <body>
+    <h1>Manage Reviews</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/reviews">Reviews</a>
+        <a href="/orders">Orders</a>
+        <a href="/users">Users</a>
+        <a href="/products">Products</a>
+      </nav>
+    <table>
+      <thead>
+        <tr>
+          <th>Customer Name</th>
+          <th>Review</th>
+          <th>Stars</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach(review => { %>
+        <tr>
+          <td><%= review.customerName %></td>
+          <td><%= review.review %></td>
+          <td><%= review.stars %> Stars</td>
+          <td>
+            <a href="/reviews/edit/<%= review._id %>">Edit</a> |
+            <a href="/reviews/delete/<%= review._id %>">Delete</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <h2><%= editcat ? "Edit Review" : "Add Review" %></h2>
+    <form method="POST" action="/reviews">
+      <input type="hidden" name="id" value="<%= editcat?._id || "" %>">
+      <input
+        type="text" name="customerName" placeholder="Customer Name" value="<%= editcat?.customerName || "" %>" required>
+      <textarea
+        name="review" placeholder="Write your review here..." required><%= editcat?.review || "" %></textarea>
+      <input
+        type="number" name="stars" placeholder="Stars (1-5)" value="<%= editcat?.stars || "" %>" min="1" max="5" required>
+      <button type="submit"><%= editcat ? "Update" : "Add" %></button>
+    </form>
+  </body>
+</html>
